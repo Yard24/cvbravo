@@ -63,7 +63,7 @@ function Bloc({ titre, accent, children }: { titre: string; accent: string; chil
   if (!children) return null;
   return (
     <section className="mt-5">
-      <h3 className="mb-2 border-b pb-1 text-[0.8em] font-extrabold uppercase tracking-[0.12em]" style={{ color: accent, borderColor: accent }}>
+      <h3 className="mb-2 border-b pb-1 text-[0.8em] font-bold uppercase tracking-[0.12em]" style={{ color: accent, borderColor: accent }}>
         {titre}
       </h3>
       {children}
@@ -91,26 +91,26 @@ export default function CvPreview({ data, template }: { data: CvData; template: 
     return (
       <div className={`${base} grid grid-cols-[34%_1fr]`}>
         <aside className="p-6 text-white" style={{ background: accent }}>
-          <h2 className="text-2xl font-extrabold leading-tight">{d.nom}</h2>
+          <h2 className="text-2xl font-bold leading-tight">{d.nom}</h2>
           <p className="mt-1 text-[1.05em] opacity-90">{d.titre}</p>
           <div className="mt-5 space-y-1 text-[0.9em] opacity-95">
             {[d.telephone, d.email, d.ville].filter(Boolean).map((x, i) => <p key={i} className="break-words">{x}</p>)}
           </div>
           {a(d.competences) && (
             <div className="mt-6">
-              <h3 className="mb-2 text-[0.8em] font-extrabold uppercase tracking-[0.12em] opacity-80">Compétences</h3>
+              <h3 className="mb-2 text-[0.8em] font-bold uppercase tracking-[0.12em] opacity-80">Compétences</h3>
               <ul className="space-y-1 text-[0.92em]">{(d.competences ?? []).filter(Boolean).map((x, i) => <li key={i}>{x}</li>)}</ul>
             </div>
           )}
           {a(d.langues) && (
             <div className="mt-6">
-              <h3 className="mb-2 text-[0.8em] font-extrabold uppercase tracking-[0.12em] opacity-80">Langues</h3>
+              <h3 className="mb-2 text-[0.8em] font-bold uppercase tracking-[0.12em] opacity-80">Langues</h3>
               <ul className="space-y-1 text-[0.92em]">{(d.langues ?? []).filter(Boolean).map((x, i) => <li key={i}>{x}</li>)}</ul>
             </div>
           )}
           {a(d.centres) && (
             <div className="mt-6">
-              <h3 className="mb-2 text-[0.8em] font-extrabold uppercase tracking-[0.12em] opacity-80">Centres d&apos;intérêt</h3>
+              <h3 className="mb-2 text-[0.8em] font-bold uppercase tracking-[0.12em] opacity-80">Centres d&apos;intérêt</h3>
               <ul className="space-y-1 text-[0.92em]">{(d.centres ?? []).filter(Boolean).map((x, i) => <li key={i}>{x}</li>)}</ul>
             </div>
           )}
@@ -130,7 +130,7 @@ export default function CvPreview({ data, template }: { data: CvData; template: 
     <div className={`${base} ${compact ? "p-6 text-[12px]" : "p-8"}`}>
       <header className={compact ? "flex flex-wrap items-end justify-between gap-2 border-b-2 pb-2" : "border-b-2 pb-3 text-center"} style={{ borderColor: accent }}>
         <div>
-          <h2 className={`${compact ? "text-2xl" : "text-3xl"} font-extrabold`}>{d.nom}</h2>
+          <h2 className={`${compact ? "text-2xl" : "text-3xl"} font-bold`}>{d.nom}</h2>
           <p className="text-[1.05em] font-semibold" style={{ color: accent }}>{d.titre}</p>
         </div>
         <Contact d={d} className={`text-[0.9em] opacity-80 ${compact ? "" : "mt-1"}`} />

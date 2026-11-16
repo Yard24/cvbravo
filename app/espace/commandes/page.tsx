@@ -16,7 +16,7 @@ export default function Commandes() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Mes commandes</h1>
+      <h1 className="text-3xl font-bold">Mes commandes</h1>
       <p className="mt-1 text-muted">Paiement, avancement et documents livrés.</p>
       {orders === null ? (
         <p className="mt-6 text-muted">Chargement…</p>

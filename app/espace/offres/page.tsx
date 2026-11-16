@@ -13,7 +13,8 @@ export default function Offres() {
   const router = useRouter();
   const [matches, setMatches] = useState<Match[] | null>(null);
   const [postulees, setPostulees] = useState<Set<string>>(new Set());
-  const [cvPrincipal, setCvPrincipal] = useState<string | null>(null);
+  const [cvs, setCvs] = useState<{ id: string; title: string; use_for_matching?: boolean }[]>([]);
+  const cvPrincipal = (cvs.find((c) => c.use_for_matching !== false) ?? cvs[0])?.id ?? null;
   const [message, setMessage] = useState("");
   const [occupe, setOccupe] = useState("");
 
@@ -21,11 +22,11 @@ export default function Offres() {
     const [m, a, c] = await Promise.all([
       supabase.from("bd_job_matches").select("*, offer:bd_job_offers(*)").neq("status", "ignore").order("score", { ascending: false }).limit(100),
       supabase.from("bd_applications").select("offer_id"),
-      supabase.from("bd_cvs").select("id").is("parent_cv_id", null).order("updated_at", { ascending: false }).limit(1),
+      supabase.from("bd_cvs").select("*").is("parent_cv_id", null).order("updated_at", { ascending: false }).limit(20),
     ]);
     setMatches(((m.data as Match[]) ?? []).filter((x) => x.offer));
     setPostulees(new Set((a.data ?? []).map((x) => x.offer_id)));
-    setCvPrincipal(c.data?.[0]?.id ?? null);
+    setCvs(c.data ?? []);
   }, [supabase]);
   useEffect(() => {
     charger();
@@ -38,6 +39,12 @@ export default function Offres() {
     setOccupe("");
     setMessage(error ? "La recherche a échoué. Réessayez." : data > 0 ? `${data} nouvelle(s) offre(s) trouvée(s).` : "Pas de nouvelle offre pour l'instant. Nous continuons à chercher chaque jour.");
     charger();
+  }
+
+  async function basculerCv(id: string, actuel: boolean) {
+    const { error } = await supabase.from("bd_cvs").update({ use_for_matching: !actuel }).eq("id", id);
+    if (error) return setMessage("La mise à jour a échoué. Réessayez.");
+    setCvs((xs) => xs.map((c) => (c.id === id ? { ...c, use_for_matching: !actuel } : c)));
   }
 
   async function adapter(m: Match) {
@@ -60,7 +67,7 @@ export default function Offres() {
     <>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-extrabold">Offres pour vous</h1>
+          <h1 className="text-3xl font-bold">Offres pour vous</h1>
           <p className="mt-1 text-muted">Les offres publiées sont comparées à votre CV chaque jour.</p>
         </div>
         <button onClick={rechercher} disabled={occupe === "recherche" || !cvPrincipal} className="btn-ghost">
@@ -68,6 +75,23 @@ export default function Offres() {
         </button>
       </div>
       {message && <p role="status" className="alert-info mt-4">{message}</p>}
+
+      {cvs.length > 0 && cvs[0].use_for_matching !== undefined && (
+        <fieldset className="card mt-5">
+          <legend className="sr-only">CV utilisés pour la recherche</legend>
+          <p className="font-bold">CV utilisés pour chercher des offres</p>
+          <p className="text-sm text-muted">Cochez les CV de votre espace à comparer aux offres, ou déposez-en un nouveau.</p>
+          <div className="mt-3 space-y-2">
+            {cvs.map((c) => (
+              <label key={c.id} className="flex items-center gap-3 rounded-2xl bg-tile px-4 py-3 text-sm">
+                <input type="checkbox" checked={c.use_for_matching !== false} onChange={() => basculerCv(c.id, c.use_for_matching !== false)} className="h-5 w-5 accent-[var(--color-brand)]" />
+                <span className="min-w-0 flex-1 truncate font-medium">{c.title}</span>
+              </label>
+            ))}
+          </div>
+          <Link href="/espace/cv" className="mt-3 inline-block text-sm font-semibold text-brand">Déposer un autre CV →</Link>
+        </fieldset>
+      )}
 
       {matches === null ? (
         <p className="mt-6 text-muted">Chargement…</p>

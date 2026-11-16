@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { compterMots } from "@/lib/pricing";
+import { analyserCv } from "@/lib/cvparse";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -42,9 +43,17 @@ export async function POST(request: NextRequest) {
   const { data: blob, error: dlError } = await supabase.storage.from("bd-documents").download(path);
   if (dlError || !blob) return NextResponse.json({ erreur: "Fichier introuvable. Réessayez l'envoi." }, { status: 404 });
 
+  // Photo de CV : le texte a été lu dans le navigateur. Accepté pour les CV seulement
+  // (pour un mémoire, le nombre de mots fixe le prix : il est toujours compté ici, côté serveur).
+  const estImage = /\.(jpe?g|png|webp)$/i.test(name);
   let texte = "";
   try {
-    texte = await extraireTexte(Buffer.from(await blob.arrayBuffer()), name);
+    if (estImage) {
+      if (kind !== "cv" || typeof body?.text !== "string") throw new Error("FORMAT");
+      texte = body.text.slice(0, 60000);
+    } else {
+      texte = await extraireTexte(Buffer.from(await blob.arrayBuffer()), name);
+    }
   } catch (e) {
     const format = e instanceof Error && e.message === "FORMAT";
     return NextResponse.json(
@@ -76,5 +85,5 @@ export async function POST(request: NextRequest) {
     p_text: texte,
   });
   if (error) return NextResponse.json({ erreur: "Enregistrement impossible. Réessayez." }, { status: 500 });
-  return NextResponse.json({ id, mots, nom: name });
+  return NextResponse.json({ id, mots, nom: name, cv: kind === "cv" ? analyserCv(texte) : undefined });
 }

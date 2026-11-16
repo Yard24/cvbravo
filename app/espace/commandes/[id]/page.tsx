@@ -66,7 +66,7 @@ export default function Commande({ params }: { params: Promise<{ id: string }> }
       <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="eyebrow">{SERVICES[order.service]}</p>
-          <h1 className="mt-1 text-2xl font-extrabold sm:text-3xl">{order.title}</h1>
+          <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{order.title}</h1>
           <p className="mt-1 text-sm text-muted">Commande du {dateFr(order.created_at, true)}</p>
         </div>
         <span className={STATUTS_COMMANDE[order.status].ton}>{STATUTS_COMMANDE[order.status].label}</span>
@@ -106,7 +106,7 @@ export default function Commande({ params }: { params: Promise<{ id: string }> }
 
         <aside className="card h-fit">
           <p className="text-sm text-muted">Total</p>
-          <p className="display text-3xl font-extrabold tabular-nums">{order.amount > 0 ? fcfa(order.amount) : "Inclus"}</p>
+          <p className="display text-3xl font-bold tabular-nums">{order.amount > 0 ? fcfa(order.amount) : "Inclus"}</p>
           {erreur && <p role="alert" className="alert-error mt-3">{erreur}</p>}
 
           {order.status === "en_attente_paiement" && (

@@ -1,63 +1,60 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PublicPage } from "@/components/Site";
+import ModelesVitrine from "@/components/ModelesVitrine";
 
 export const metadata: Metadata = {
-  title: "Refonte de CV et alertes emploi",
+  title: "CV repris automatiquement et alertes emploi",
   description:
-    "Déposez votre CV : Bravodocs le remet en forme sur un nouveau modèle, cherche les offres adaptées et vous aide à postuler avec un CV ajusté à chaque annonce.",
+    "Déposez votre CV en Word, PDF ou photo : ses informations sont reprises automatiquement sur un nouveau modèle. Bravodocs cherche ensuite les offres adaptées à votre profil.",
 };
 
 const ETAPES = [
-  ["Déposez votre CV actuel", "En PDF ou Word. Nous en extrayons le contenu, vous n'avez rien à ressaisir."],
-  ["Choisissez un modèle", "Classique, moderne ou compact. Votre CV est remis en forme et reste modifiable."],
-  ["Recevez les offres adaptées", "Nous lisons chaque jour les offres publiées et les comparons à votre profil. Vous êtes notifié dès qu'une offre correspond."],
-  ["Adaptez et postulez", "Un clic sur « Adapter mon CV » crée une version ajustée à l'annonce. Vous postulez, votre suivi se met à jour."],
+  ["Déposez votre CV", "Word, PDF ou photo. Vous pouvez aussi cocher un CV déjà présent dans votre espace."],
+  ["Tout est repris automatiquement", "Coordonnées, expériences, formations, compétences : chaque information est placée dans le modèle choisi. Rien à ressaisir."],
+  ["Vous retouchez si besoin", "Chaque rubrique reste modifiable à la main. Vous changez de modèle sans perdre votre contenu."],
+  ["Les offres arrivent", "Votre CV est comparé chaque jour aux offres publiées. Vous êtes notifié, vous adaptez votre CV à l'annonce, vous postulez."],
 ];
 
 export default function PageCv() {
   return (
     <PublicPage>
-      <section className="wrap py-12 md:py-16">
-        <p className="eyebrow">CV et offres d&apos;emploi</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-extrabold sm:text-5xl">
-          Un CV refait une fois, adapté à chaque offre ensuite.
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted">
-          Vous déposez le CV que vous avez déjà. Nous le reproduisons sur un nouveau modèle, puis nous surveillons les
-          offres d&apos;emploi à votre place.
+      <section className="wrap pb-6 pt-16 text-center sm:pt-24">
+        <p className="eyebrow">CV et emploi</p>
+        <h1 className="mx-auto mt-4 max-w-4xl text-5xl font-bold sm:text-6xl">Votre CV, refait sans rien ressaisir.</h1>
+        <p className="lead mx-auto mt-6 max-w-2xl">
+          Déposez le CV que vous avez déjà. Ses informations sont lues et replacées dans un nouveau modèle, que vous
+          ajustez ensuite librement.
         </p>
-        <div className="mt-7 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/espace/cv" className="btn-primary">Déposer mon CV</Link>
-          <Link href="/espace/offres" className="btn-ghost">Voir mes offres</Link>
+          <Link href="/cv/creer" className="btn-ghost">Créer un CV sans inscription</Link>
         </div>
+      </section>
 
-        <ol className="mt-12 grid gap-5 md:grid-cols-2">
+      <section className="wrap section">
+        <h2 className="text-4xl font-bold sm:text-5xl">Les modèles.</h2>
+        <p className="lead mt-4 max-w-2xl">Trois modèles pour commencer, d&apos;autres arrivent. Aperçus réalisés avec un CV fictif.</p>
+        <div className="mt-10"><ModelesVitrine /></div>
+      </section>
+
+      <section className="wrap pb-8">
+        <h2 className="text-4xl font-bold sm:text-5xl">Du dépôt à la candidature.</h2>
+        <ol className="mt-10 grid gap-5 md:grid-cols-2">
           {ETAPES.map(([titre, texte], i) => (
-            <li key={titre} className="card flex gap-4">
-              <span className="display grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand text-lg font-bold text-white">
-                {i + 1}
-              </span>
-              <div>
-                <h2 className="text-lg font-bold">{titre}</h2>
-                <p className="mt-1 text-sm text-muted">{texte}</p>
-              </div>
+            <li key={titre} className="tile">
+              <span className="text-sm font-semibold text-muted">Étape {i + 1}</span>
+              <h3 className="mt-1 text-2xl font-semibold">{titre}</h3>
+              <p className="mt-2 text-muted">{texte}</p>
             </li>
           ))}
         </ol>
+      </section>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {[
-            ["Tableau de bord", "CV, offres, candidatures et commandes au même endroit."],
-            ["Notifications", "Un message dans votre espace à chaque nouvelle offre qui vous correspond."],
-            ["Suivi des candidatures", "Chaque offre passe de « à préparer » à « postulé », sans tableur."],
-          ].map(([t, d]) => (
-            <div key={t} className="rounded-2xl bg-sun-soft p-5">
-              <h3 className="text-lg font-bold">{t}</h3>
-              <p className="mt-1 text-sm text-muted">{d}</p>
-            </div>
-          ))}
-        </div>
+      <section className="wrap section text-center">
+        <h2 className="mx-auto max-w-3xl text-4xl font-bold sm:text-5xl">Un espace pour suivre vos candidatures.</h2>
+        <p className="lead mx-auto mt-4 max-w-2xl">CV, offres reçues, candidatures envoyées et commandes au même endroit. Chaque offre passe de « à préparer » à « postulé ».</p>
+        <Link href="/espace/offres" className="btn-primary mt-8">Voir les offres pour mon profil</Link>
       </section>
     </PublicPage>
   );

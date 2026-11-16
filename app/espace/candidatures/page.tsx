@@ -33,7 +33,7 @@ export default function Candidatures() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Mes candidatures</h1>
+      <h1 className="text-3xl font-bold">Mes candidatures</h1>
       <p className="mt-1 text-muted">Pour chaque offre : un CV adapté, puis le suivi de votre candidature.</p>
 
       {items === null ? (

@@ -25,7 +25,7 @@ export default function AdminJournal() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Journal</h1>
+      <h1 className="text-3xl font-bold">Journal</h1>
       <p className="mt-1 text-muted">
         Collectes de flux, rapprochements, paiements et traitements IA.
         {file && ` File IA : ${file.attente} en attente, ${file.termine} terminé(s).`}

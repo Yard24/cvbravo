@@ -45,7 +45,7 @@ export default function AdminEquipe() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Équipe</h1>
+      <h1 className="text-3xl font-bold">Équipe</h1>
       <p className="mt-1 text-muted">
         Les modérateurs traitent les commandes : ils voient les demandes, téléchargent les documents des clients, écrivent au
         client et livrent. Les tarifs, les sources d&apos;offres, le journal, l&apos;annulation d&apos;une commande et cette page restent

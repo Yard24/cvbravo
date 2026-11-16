@@ -62,7 +62,7 @@ export default function AdminTarifs() {
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-3xl font-extrabold">Tarifs</h1>
+        <h1 className="text-3xl font-bold">Tarifs</h1>
         <button onClick={enregistrer} className="btn-primary">Enregistrer les tarifs</button>
       </div>
       {message && <p role="status" className="alert-info mt-4">{message}</p>}

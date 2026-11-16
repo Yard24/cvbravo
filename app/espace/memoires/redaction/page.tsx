@@ -44,7 +44,7 @@ function Formulaire() {
               <input type="radio" name="niveau" value={n.code} checked={niveau === n.code} onChange={() => setNiveau(n.code)} className="sr-only" />
               <span className="block font-bold">{n.label}</span>
               <span className="block text-sm text-muted">{n.detail}</span>
-              <span className="display mt-2 block text-xl font-extrabold tabular-nums">{fcfa(prix[n.code])}</span>
+              <span className="display mt-2 block text-xl font-bold tabular-nums">{fcfa(prix[n.code])}</span>
             </label>
           ))}
         </div>
@@ -83,7 +83,7 @@ function Formulaire() {
       <section className="card mt-5 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-sm text-muted">{NIVEAUX_REDACTION.find((n) => n.code === niveau)?.label}</p>
-          <p className="display text-3xl font-extrabold tabular-nums">{fcfa(prix[niveau])}</p>
+          <p className="display text-3xl font-bold tabular-nums">{fcfa(prix[niveau])}</p>
         </div>
         <button type="submit" disabled={envoi} className="btn-primary">{envoi ? "Création…" : "Valider et passer au paiement"}</button>
         {erreur && <p role="alert" className="alert-error w-full">{erreur}</p>}
@@ -95,7 +95,7 @@ function Formulaire() {
 export default function Redaction() {
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Assistance à la rédaction de mémoire</h1>
+      <h1 className="text-3xl font-bold">Assistance à la rédaction de mémoire</h1>
       <p className="mt-1 text-muted">Un accompagnement du sujet à la soutenance, au tarif de votre niveau.</p>
       <Suspense>
         <Formulaire />

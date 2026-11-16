@@ -29,7 +29,7 @@ export default function AdminCommandes() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Commandes</h1>
+      <h1 className="text-3xl font-bold">Commandes</h1>
       <p className="mt-1 text-muted">
         {orders ? `${orders.length} commande(s) · ${fcfa(encaisse)} encaissés (paiements de test compris)` : "Chargement…"}
       </p>

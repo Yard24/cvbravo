@@ -79,7 +79,7 @@ export default function AdminCommande({ params }: { params: Promise<{ id: string
       <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="eyebrow">{SERVICES[order.service]}</p>
-          <h1 className="mt-1 text-2xl font-extrabold">{order.title}</h1>
+          <h1 className="mt-1 text-2xl font-bold">{order.title}</h1>
           <p className="mt-1 text-sm text-muted">{dateFr(order.created_at, true)} · {fcfa(order.amount)}</p>
         </div>
         <span className={STATUTS_COMMANDE[order.status].ton}>{STATUTS_COMMANDE[order.status].label}</span>

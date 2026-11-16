@@ -33,7 +33,7 @@ export default function Notifications() {
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-3xl font-extrabold">Notifications</h1>
+        <h1 className="text-3xl font-bold">Notifications</h1>
         {nonLues.length > 0 && <button onClick={() => lire(nonLues.map((n) => n.id))} className="btn-ghost">Tout marquer comme lu</button>}
       </div>
       {items === null ? (

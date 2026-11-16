@@ -34,7 +34,7 @@ export default function Relecture() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Relecture et correction</h1>
+      <h1 className="text-3xl font-bold">Relecture et correction</h1>
       <p className="mt-1 text-muted">Déposez votre document : nous comptons les mots et le prix s&apos;affiche avant tout paiement.</p>
 
       <section className="card mt-6">
@@ -70,7 +70,7 @@ export default function Relecture() {
           <section className="card mt-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-sm text-muted">{new Intl.NumberFormat("fr-FR").format(doc.mots)} mots · {settings.urgences[urgence]?.label}</p>
-              <p className="display text-3xl font-extrabold tabular-nums">{fcfa(prixRelecture(doc.mots, urgence, settings))}</p>
+              <p className="display text-3xl font-bold tabular-nums">{fcfa(prixRelecture(doc.mots, urgence, settings))}</p>
             </div>
             <button onClick={valider} disabled={envoi} className="btn-primary">{envoi ? "Création…" : "Valider et passer au paiement"}</button>
             {erreur && <p role="alert" className="alert-error w-full">{erreur}</p>}

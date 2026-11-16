@@ -48,13 +48,13 @@ export default function TableauDeBord() {
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Bonjour{prenom ? ` ${prenom}` : ""}.</h1>
+      <h1 className="text-3xl font-bold">Bonjour{prenom ? ` ${prenom}` : ""}.</h1>
       <p className="mt-1 text-muted">Voici où en sont vos documents et vos candidatures.</p>
 
       <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {tuiles.map((t) => (
           <Link key={t.href} href={t.href} className="card !p-4 hover:border-brand">
-            <p className="display text-3xl font-extrabold tabular-nums text-brand">{t.n ?? "–"}</p>
+            <p className="display text-3xl font-bold tabular-nums text-brand">{t.n ?? "–"}</p>
             <p className="mt-1 text-sm text-muted">{t.label}</p>
           </Link>
         ))}

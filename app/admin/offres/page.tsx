@@ -57,7 +57,7 @@ export default function AdminOffres() {
     <>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-extrabold">Sources d&apos;offres</h1>
+          <h1 className="text-3xl font-bold">Sources d&apos;offres</h1>
           <p className="mt-1 text-muted">
             Flux RSS lus chaque jour, standardisés dans un tableau unique puis comparés aux CV. {nbOffres !== null && `${nbOffres} offre(s) en base.`}
           </p>

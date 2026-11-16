@@ -95,7 +95,7 @@ export default function EspaceShell({ children, zone = "espace" }: { children: R
 
   return (
     <EspaceContext.Provider value={{ ...ctx, rafraichirNotifs }}>
-      <header className="sticky top-0 z-30 border-b border-line bg-paper/95 backdrop-blur print:hidden">
+      <header className="sticky top-0 z-30 border-b border-line/70 bg-white/85 backdrop-blur-xl print:hidden">
         <div className="wrap flex h-14 items-center justify-between gap-3">
           <Logo href="/espace" />
           <div className="flex items-center gap-2 text-sm">
@@ -114,7 +114,7 @@ export default function EspaceShell({ children, zone = "espace" }: { children: R
               href={l.href}
               aria-current={actif(l.href) ? "page" : undefined}
               className={`shrink-0 rounded-full px-3.5 py-2 text-sm font-semibold ${
-                actif(l.href) ? "bg-brand text-white" : "text-muted hover:bg-brand-soft hover:text-brand-dark"
+                actif(l.href) ? "bg-ink text-white" : "text-muted hover:bg-tile hover:text-ink"
               }`}
             >
               {l.label}
