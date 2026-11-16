@@ -1,3 +1,4 @@
+import { SUPABASE_KEY, SUPABASE_URL } from "./config";
 import { createClient } from "@supabase/supabase-js";
 import { RELECTURE_DEFAUT, type RelectureSettings } from "./pricing";
 
@@ -14,7 +15,7 @@ const DEFAUT: Reglages = {
 /** Lecture publique des tarifs (pages vitrines). Retombe sur les valeurs par défaut si la base est injoignable. */
 export async function lireReglages(): Promise<Reglages> {
   try {
-    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false },
     });
     const { data, error } = await supabase.from("bd_settings").select("key,value").in("key", ["relecture", "redaction"]);

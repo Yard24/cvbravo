@@ -1,3 +1,4 @@
+import { SUPABASE_KEY, SUPABASE_URL } from "@/lib/config";
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient as createPlainClient } from "@supabase/supabase-js";
 import { XMLParser } from "fast-xml-parser";
@@ -73,7 +74,7 @@ async function autorise(request: NextRequest): Promise<boolean> {
 
 async function collecter() {
   const secret = process.env.BD_SERVER_SECRET;
-  const supabase = createPlainClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+  const supabase = createPlainClient(SUPABASE_URL, SUPABASE_KEY, {
     auth: { persistSession: false },
   });
   const { data: sources, error } = await supabase.rpc("bd_list_sources", { p_secret: secret });
