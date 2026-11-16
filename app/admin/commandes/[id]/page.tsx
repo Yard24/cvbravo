@@ -3,12 +3,14 @@
 import { use, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { useEspace } from "@/components/EspaceShell";
 import { fcfa } from "@/lib/pricing";
 import { SERVICES, STATUTS_COMMANDE, dateFr, type Order } from "@/lib/types";
 
 export default function AdminCommande({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const supabase = useMemo(() => createClient(), []);
+  const { profil } = useEspace();
   const [order, setOrder] = useState<Order | null | undefined>(undefined);
   const [client, setClient] = useState<{ full_name: string | null; phone: string | null } | null>(null);
   const [docPath, setDocPath] = useState<{ storage_path: string; file_name: string } | null>(null);
@@ -103,7 +105,7 @@ export default function AdminCommande({ params }: { params: Promise<{ id: string
           <div className="flex flex-wrap gap-2">
             <button disabled={occupe} onClick={() => maj({ admin_note: note || null }, "Message enregistré.")} className="btn-ghost">Enregistrer le message</button>
             {order.status === "payee" && <button disabled={occupe} onClick={() => maj({ status: "en_cours", admin_note: note || null }, "Commande passée en cours.")} className="btn-primary">Démarrer le travail</button>}
-            {order.status !== "annulee" && order.status !== "livree" && (
+            {profil.is_admin && order.status !== "annulee" && order.status !== "livree" && (
               <button disabled={occupe} onClick={() => window.confirm("Annuler cette commande ?") && maj({ status: "annulee" }, "Commande annulée.")} className="btn-danger">Annuler</button>
             )}
           </div>

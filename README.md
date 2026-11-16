@@ -38,7 +38,7 @@ Site de production de documents : refonte de CV avec alertes emploi, relecture e
 ### Traitements IA
 
 Les tâches (`bd_ai_jobs` : structuration d'un CV déposé, adaptation à une offre) sont traitées par une tâche
-planifiée Claude, qui écrit le résultat dans `bd_cvs` et une ligne dans `bd_journal`.
+planifiée Claude quotidienne, qui écrit le résultat dans `bd_cvs` et une ligne dans `bd_journal`.
 
 ### Paiement
 
@@ -49,12 +49,13 @@ depuis le webhook du prestataire et passer `bd_settings.paiement.mode` à une au
 
 Voir `.env.example`. `BD_SERVER_SECRET` doit correspondre à l'empreinte SHA-256 stockée dans `bd_server_secrets`.
 
-## Donner les droits d'administration
+## Rôles
 
-```sql
-update public.bd_profiles set is_admin = true
-where id = (select id from auth.users where email = 'adresse@exemple.com');
-```
+- **Administrateur** : tout le back-office (tarifs, sources d'offres, journal, équipe, annulation de commande).
+- **Modérateur** : traite les commandes (lecture des demandes et documents, message au client, livraison).
+
+Les rôles se gèrent dans `/admin/equipe` (fonction `bd_set_staff`). Une adresse sans compte reçoit une invitation
+(`bd_staff_invites`) : le rôle est attribué à la première connexion, une fois l'adresse confirmée.
 
 ## Développement
 
