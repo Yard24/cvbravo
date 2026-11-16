@@ -21,7 +21,7 @@ const TITRES: [Rubrique, RegExp][] = [
 const VILLES = /\b(Cotonou|Porto[- ]Novo|Abomey[- ]Calavi|Calavi|Parakou|Bohicon|Ouidah|Natitingou|Lokossa|Djougou|Lom[ée]|Abidjan|Dakar|Ouagadougou|Niamey|Bamako|Accra|Lagos|Douala|Yaound[ée]|Libreville|Kinshasa|Conakry|Paris)\b/i;
 const MOIS = "janv(?:ier)?|f[ée]vr(?:ier)?|mars|avr(?:il)?|mai|juin|juil(?:let)?|ao[uû]t|sept(?:embre)?|oct(?:obre)?|nov(?:embre)?|d[ée]c(?:embre)?|jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:tember)?|october|november|december";
 const UNE_DATE = `(?:(?:${MOIS})\\.?\\s+)?(?:\\d{1,2}[/.-])?(?:19|20)\\d{2}`;
-const FIN = `(?:${UNE_DATE}|pr[ée]sent|aujourd'?hui|ce jour|en cours|actuel(?:lement)?|now|present|current)`;
+const FIN = `(?:${UNE_DATE}|pr[ée]sent|aujourd'?hui|[àa] ce jour|ce jour|en cours|actuel(?:lement)?|now|present|current)`;
 const PERIODE = new RegExp(`(?:depuis\\s+)?(${UNE_DATE})(?:\\s*(?:-|–|—|à|au|to|jusqu'?(?:à|en))\\s*(${FIN}))?`, "i");
 
 const normaliser = (s: string) =>
